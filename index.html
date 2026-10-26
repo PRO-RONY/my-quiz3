@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الاختبار الوطني للحاسوب - Set 2 (Questions 51 - 100)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #673ab7;
+            --primary-hover: #5e35b1;
+            --bg-color: #f0ebf8;
+            --surface: #ffffff;
+            --error: #d32f2f;
+            --success: #388e3c;
+            --text-main: #202124;
+            --text-secondary: #5f6368;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            font-family: 'Cairo', sans-serif;
+            color: var(--text-main);
+            margin: 0;
+            padding-bottom: 80px;
+        }
+
+        .en-text {
+            font-family: 'Inter', sans-serif;
+            direction: ltr;
+            text-align: left;
+        }
+
+        .card {
+            background-color: var(--surface);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 1px 2px 0 rgba(60,64,67,0.3), 0 1px 3px 1px rgba(60,64,67,0.15);
+            transition: box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            box-shadow: 0 2px 6px 2px rgba(60,64,67,0.15), 0 1px 2px 0 rgba(60,64,67,0.3);
+        }
+
+        .header-card {
+            border-top: 10px solid var(--primary);
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+        }
+
+        .input-text {
+            width: 100%;
+            border: none;
+            border-bottom: 1px solid #dadce0;
+            padding: 8px 0;
+            font-size: 1rem;
+            font-family: inherit;
+            transition: border-bottom-color 0.3s, background-color 0.3s;
+            background-color: transparent;
+        }
+
+        .input-text:focus {
+            outline: none;
+            border-bottom: 2px solid var(--primary);
+            background-color: #f8f9fa;
+        }
+
+        .radio-label {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.2s, border 0.2s;
+            border: 1px solid transparent;
+        }
+
+        .radio-label:hover {
+            background-color: #f1f3f4;
+        }
+
+        input[type="radio"] {
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--text-secondary);
+            border-radius: 50%;
+            margin-right: 12px;
+            position: relative;
+            outline: none;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        input[type="radio"]:checked {
+            border-color: var(--primary);
+        }
+
+        input[type="radio"]:checked::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 10px;
+            height: 10px;
+            background-color: var(--primary);
+            border-radius: 50%;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 4px;
+            font-family: inherit;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-hover);
+        }
+
+        .option-correct {
+            background-color: #e6f4ea !important;
+            border-color: var(--success) !important;
+        }
+        .option-incorrect {
+            background-color: #fce8e6 !important;
+            border-color: var(--error) !important;
+        }
+        .explanation-box {
+            background-color: #f1f3f4;
+            border-left: 4px solid var(--primary);
+            padding: 12px;
+            margin-top: 12px;
+            border-radius: 4px;
+            font-size: 0.95rem;
+            display: none;
+            direction: ltr;
+            text-align: left;
+        }
+
+        .progress-container {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: white;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+            padding: 12px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            z-index: 1000;
+        }
+
+        .progress-bar-bg {
+            flex-grow: 1;
+            height: 8px;
+            background-color: #e0e0e0;
+            border-radius: 4px;
+            margin: 0 20px;
+            overflow: hidden;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background-color: var(--primary);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .timer-display {
+            font-weight: bold;
+            font-family: monospace;
+            font-size: 1.2rem;
+            color: var(--primary);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="max-w-3xl mx-auto p-4 sm:p-6" id="app">
+        
+        <!-- Header Section -->
+        <div class="card header-card">
+            <h1 class="text-3xl font-bold mb-2">الاختبار الوطني للحاسوب - المجموعة الثانية (الأسئلة 51 - 100)</h1>
+            <p class="text-gray-600 mb-4">اختبار شامل جديد يستهدف مفاهيم الحاسوب، شبكات الإنترنت، ونظام التشغيل باللغة الإنكليزية بدون ترجمة.</p>
+            
+            <div class="flex flex-col sm:flex-row gap-4 mt-4">
+                <div class="flex-1">
+                    <label class="block text-sm font-semibold mb-2 text-gray-700">وضع الاختبار:</label>
+                    <select id="examMode" class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:border-purple-500">
+                        <option value="practice">وضع التدريب (إظهار صحة الإجابة والتوضيح فوراً)</option>
+                        <option value="exam">وضع الامتحان (إظهار النتيجة والدرجة في النهاية)</option>
+                    </select>
+                </div>
+                <div class="flex-1">
+                    <label class="block text-sm font-semibold mb-2 text-gray-700">المؤقت الزمني:</label>
+                    <select id="timerSelect" class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:border-purple-500">
+                        <option value="0">بدون مؤقت</option>
+                        <option value="15">15 دقيقة</option>
+                        <option value="30">30 دقيقة</option>
+                        <option value="45">45 دقيقة</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- Student Info -->
+        <div class="card" id="studentInfoCard">
+            <label for="studentName" class="block text-lg font-semibold mb-2">الاسم الثلاثي <span class="text-red-500">*</span></label>
+            <input type="text" id="studentName" class="input-text" placeholder="أدخل اسمك هنا للبدء..." required>
+            <div id="nameError" class="text-red-500 text-sm mt-2 hidden">يرجى إدخال الاسم كاملاً للبدء في الاختبار.</div>
+            
+            <button id="startBtn" class="btn-primary mt-6 w-full sm:w-auto" onclick="startQuiz()">ابدأ الاختبار الآن</button>
+        </div>
+
+        <!-- Quiz Container -->
+        <div id="quizContainer" class="hidden">
+            <div id="questionsList"></div>
+
+            <div class="card mt-6 flex justify-end">
+                <button id="submitBtn" class="btn-primary" onclick="submitQuiz()">تسليم الاختبار</button>
+            </div>
+        </div>
+
+        <!-- Results Container -->
+        <div id="resultsContainer" class="hidden card header-card text-center">
+            <h2 class="text-3xl font-bold mb-4 text-gray-800">نتيجة الاختبار النهائي</h2>
+            <p id="resultStudentName" class="text-xl mb-2 font-semibold text-gray-700"></p>
+            <div class="text-5xl font-bold text-purple-700 mb-6" id="finalScoreDisplay"></div>
+            
+            <div class="grid grid-cols-3 gap-4 mb-6 text-sm sm:text-base">
+                <div class="bg-green-100 text-green-800 p-3 rounded">
+                    إجابات صحيحة: <span id="correctCount" class="font-bold"></span>
+                </div>
+                <div class="bg-red-100 text-red-800 p-3 rounded">
+                    إجابات خاطئة: <span id="incorrectCount" class="font-bold"></span>
+                </div>
+                <div class="bg-gray-100 text-gray-800 p-3 rounded">
+                    لم يُجب عليها: <span id="unansweredCount" class="font-bold"></span>
+                </div>
+            </div>
+
+            <button class="btn-primary mt-4" onclick="location.reload()">إجراء اختبار جديد</button>
+            <button class="btn-primary mt-4 bg-gray-600 hover:bg-gray-700 mr-2" id="showAnswersBtn" onclick="showCorrectAnswers()">مراجعة الإجابات والتوضيحات</button>
+        </div>
+
+    </div>
+
+    <!-- Progress & Timer Bar -->
+    <div class="progress-container hidden" id="progressContainer">
+        <div class="timer-display" id="timerDisplay">--:--</div>
+        <div class="progress-bar-bg">
+            <div class="progress-bar-fill" id="progressBar"></div>
+        </div>
+        <div class="text-sm font-semibold text-gray-600 w-24 text-left">
+            <span id="answeredCount">0</span> / <span id="totalQuestionsCount">50</span>
+        </div>
+    </div>
+
+    <script>
+        const QUESTION_SCORE = 1;
+
+        // 50 NEW distinct questions from the curriculum (Questions 51-100) strictly in English
+        const quizData = [
+            {
+                q: "Which of the following is considered an input device?",
+                opts: ["Monitor", "Barcode Reader", "Printer", "Speaker"],
+                correct: 1,
+                exp: "A Barcode Reader inputs data into the system, whereas Monitor, Printer, and Speaker are output devices."
+            },
+            {
+                q: "What type of memory is RAM (Random Access Memory)?",
+                opts: ["Non-volatile Memory", "Volatile Memory", "Read-Only Memory", "Permanent Secondary Storage"],
+                correct: 1,
+                exp: "RAM is volatile memory, meaning its contents are cleared when the computer is turned off."
+            },
+            {
+                q: "Which keyboard shortcut selects all items in the current folder or document?",
+                opts: ["Ctrl + A", "Ctrl + S", "Ctrl + Z", "Ctrl + P"],
+                correct: 0,
+                exp: "Ctrl + A is the standard shortcut key used to select all items."
+            },
+            {
+                q: "What does IP stand for in networking terminology?",
+                opts: ["Internal Process", "Internet Protocol", "Interconnected Path", "Information Provider"],
+                correct: 1,
+                exp: "IP stands for Internet Protocol, which defines rules for addressing and routing data packets."
+            },
+            {
+                q: "Which extension usually represents an executable installation file on Windows?",
+                opts: [".docx", ".exe", ".png", ".xlsx"],
+                correct: 1,
+                exp: ".exe stands for executable file used to install or run applications in Windows."
+            },
+            {
+                q: "Which component manages computer hardware and software resources and provides common services?",
+                opts: ["Application Software", "Operating System", "Web Browser", "Antivirus Utility"],
+                correct: 1,
+                exp: "An Operating System (like Windows) acts as the system manager for hardware and applications."
+            },
+            {
+                q: "What is the primary function of a Firewall in computer networks?",
+                opts: ["Increase internet speed", "Block unauthorized network access", "Boost graphics performance", "Store backup files"],
+                correct: 1,
+                exp: "A Firewall filters and blocks unauthorized access to or from a private network."
+            },
+            {
+                q: "Which of the following protocol is used to securely transfer web pages over the internet?",
+                opts: ["HTTP", "FTP", "HTTPS", "SMTP"],
+                correct: 2,
+                exp: "HTTPS (Hypertext Transfer Protocol Secure) uses encryption to protect communication over web pages."
+            },
+            {
+                q: "Which shortcut key renames a selected file or folder in Windows?",
+                opts: ["F2", "F5", "F11", "Esc"],
+                correct: 0,
+                exp: "F2 allows you to quickly rename a selected item in Windows Explorer."
+            },
+            {
+                q: "What is URL an acronym for?",
+                opts: ["Uniform Resource Locator", "Universal Register Location", "United Resource Link", "User Response Locator"],
+                correct: 0,
+                exp: "URL stands for Uniform Resource Locator, which specifies the address of a web resource."
+            },
+            {
+                q: "Where is the Windows Taskbar located by default?",
+                opts: ["At the top of the desktop", "At the bottom of the screen", "On the right side of the screen", "Inside File Explorer"],
+                correct: 1,
+                exp: "By default in Windows operating systems, the Taskbar is positioned at the bottom."
+            },
+            {
+                q: "Which component is used for long-term non-volatile storage in a PC?",
+                opts: ["RAM", "Cache", "Hard Disk Drive (HDD)", "Registers"],
+                correct: 2,
+                exp: "Hard Drives (HDD/SSD) provide persistent non-volatile storage for files and OS."
+            },
+            {
+                q: "Which key cancels a command or closes a pop-up dialog box in Windows?",
+                opts: ["Tab", "Enter", "Esc", "Shift"],
+                correct: 2,
+                exp: "The Escape (Esc) key cancels current tasks or dismisses open dialog boxes."
+            },
+            {
+                q: "What does GUI stand for?",
+                opts: ["Graphical User Interface", "Global User Interaction", "General Utility Integration", "Guided User Interaction"],
+                correct: 0,
+                exp: "GUI stands for Graphical User Interface, using icons and windows for interaction."
+            },
+            {
+                q: "Which tool is used to search for files, applications, and settings in Windows 10/11?",
+                opts: ["Control Panel", "Windows Search / Cortana Bar", "Task Manager", "Device Manager"],
+                correct: 1,
+                exp: "The Search bar on the taskbar lets users locate files and applications quickly."
+            },
+            {
+                q: "What is the key combination to switch between open windows or apps?",
+                opts: ["Alt + Tab", "Ctrl + Shift", "Windows Key + L", "Alt + Shift"],
+                correct: 0,
+                exp: "Alt + Tab switches between active open application windows."
+            },
+            {
+                q: "Which network topology connects all devices to a single central hub or switch?",
+                opts: ["Bus Topology", "Star Topology", "Ring Topology", "Mesh Topology"],
+                correct: 1,
+                exp: "In a Star topology, all computer nodes are connected directly to a central node."
+            },
+            {
+                q: "What is the purpose of the Recycle Bin in Windows?",
+                opts: ["To compress large files", "To permanently destroy viruses", "To hold deleted files temporarily", "To clean disk dust"],
+                correct: 2,
+                exp: "Deleted files are temporarily saved in the Recycle Bin before permanent deletion."
+            },
+            {
+                q: "Which standard internet protocol is used specifically for sending outgoing e-mails?",
+                opts: ["POP3", "IMAP", "SMTP", "DNS"],
+                correct: 2,
+                exp: "SMTP (Simple Mail Transfer Protocol) is used for sending e-mail messages."
+            },
+            {
+                q: "Which shortcut locks your Windows PC immediately?",
+                opts: ["Ctrl + Alt + Delete", "Win + L", "Win + E", "Alt + F4"],
+                correct: 1,
+                exp: "Pressing the Windows Logo Key + L locks the screen instantly."
+            },
+            {
+                q: "What is CC in e-mail messaging context?",
+                opts: ["Computer Code", "Carbon Copy", "Central Control", "Current Contact"],
+                correct: 1,
+                exp: "CC stands for Carbon Copy, used to send a copy of an email to secondary recipients."
+            },
+            {
+                q: "Which software category does Microsoft Word belong to?",
+                opts: ["System Software", "Application Software", "Utility Program", "Firmware"],
+                correct: 1,
+                exp: "Microsoft Word is an application software used for word processing tasks."
+            },
+            {
+                q: "What is the function of the DNS (Domain Name System)?",
+                opts: ["Encrypt passwords", "Translate domain names to IP addresses", "Manage CPU usage", "Download web pages faster"],
+                correct: 1,
+                exp: "DNS converts human-readable web addresses (e.g., example.com) into numerical IP addresses."
+            },
+            {
+                q: "Which function key is commonly pressed to refresh the active web page or window?",
+                opts: ["F1", "F3", "F5", "F12"],
+                correct: 2,
+                exp: "F5 refreshes or reloads the active window or web browser page."
+            },
+            {
+                q: "Which utility in Windows displays running tasks and memory performance in real-time?",
+                opts: ["Task Manager", "File Explorer", "Disk Cleanup", "System Information"],
+                correct: 0,
+                exp: "Task Manager allows monitoring of running processes, CPU, and memory utilization."
+            },
+            {
+                q: "What is the function of an Uninterruptible Power Supply (UPS)?",
+                opts: ["Provides temporary battery power during power failure", "Increases processor clock speed", "Protects against online viruses", "Provides wireless internet"],
+                correct: 0,
+                exp: "A UPS supplies emergency backup power when the utility power source fails."
+            },
+            {
+                q: "What is BCC in an email?",
+                opts: ["Basic Carbon Copy", "Blind Carbon Copy", "Binary Computer Communication", "Backup Content Copy"],
+                correct: 1,
+                exp: "Blind Carbon Copy hides the recipient's email address from other recipients."
+            },
+            {
+                q: "Which key combination opens the Windows File Explorer directly?",
+                opts: ["Win + E", "Win + R", "Win + D", "Win + I"],
+                correct: 0,
+                exp: "Windows key + E opens File Explorer instantly."
+            },
+            {
+                q: "Which unit equals 1024 Megabytes (MB)?",
+                opts: ["1 Kilobyte", "1 Terabyte", "1 Gigabyte", "1 Petabyte"],
+                correct: 2,
+                exp: "1 Gigabyte (GB) = 1024 Megabytes (MB)."
+            },
+            {
+                q: "What does SSD stand for?",
+                opts: ["Solid State Drive", "System Storage Device", "Super Speed Disk", "Secondary State Drive"],
+                correct: 0,
+                exp: "SSD stands for Solid State Drive, a fast flash-based storage technology."
+            },
+            {
+                q: "Which protocol is used to download emails from a mail server to a local client?",
+                opts: ["POP3", "HTTP", "FTP", "DHCP"],
+                correct: 0,
+                exp: "POP3 (Post Office Protocol 3) downloads emails from a server to a client device."
+            },
+            {
+                q: "What does CPU stand for?",
+                opts: ["Central Processing Unit", "Computer Power Unit", "Central Power User", "Control Processing Utility"],
+                correct: 0,
+                exp: "CPU stands for Central Processing Unit."
+            },
+            {
+                q: "What type of port is used to connect a monitor to a PC for high-definition video and audio?",
+                opts: ["USB-A", "HDMI", "RJ-45", "PS/2"],
+                correct: 1,
+                exp: "HDMI carries high-definition video and multi-channel audio signals."
+            },
+            {
+                q: "Which key combination pastes the copied text from the clipboard?",
+                opts: ["Ctrl + C", "Ctrl + V", "Ctrl + X", "Ctrl + Z"],
+                correct: 1,
+                exp: "Ctrl + V is the universal shortcut to paste copied or cut content."
+            },
+            {
+                q: "What is a Trojan Horse in computer security?",
+                opts: ["A hardware part", "Malware disguised as legitimate software", "An antivirus scanner", "A browser extension"],
+                correct: 1,
+                exp: "A Trojan Horse misleads users of its true intent by appearing as harmless software."
+            },
+            {
+                q: "What is the keyboard shortcut to minimize all open windows and show the desktop?",
+                opts: ["Win + D", "Ctrl + M", "Alt + Esc", "Win + Shift + M"],
+                correct: 0,
+                exp: "Win + D toggles showing the desktop by minimizing all open windows."
+            },
+            {
+                q: "What does FTP stand for?",
+                opts: ["Fast Transfer Program", "File Transfer Protocol", "File Text Processing", "Format Transfer Protocol"],
+                correct: 1,
+                exp: "FTP (File Transfer Protocol) is used for transferring files between network hosts."
+            },
+            {
+                q: "Which hardware component processes graphical data and displays images on the monitor?",
+                opts: ["Sound Card", "GPU / Graphics Card", "Network Interface Card", "Power Supply Unit"],
+                correct: 1,
+                exp: "GPU (Graphics Processing Unit) renders graphics and images."
+            },
+            {
+                q: "What type of file is created by default with .xlsx extension?",
+                opts: ["Word Document", "PowerPoint Presentation", "Excel Spreadsheet", "PDF File"],
+                correct: 2,
+                exp: ".xlsx is the default file extension for Microsoft Excel spreadsheets."
+            },
+            {
+                q: "Which folder in an email account stores unsent email drafts?",
+                opts: ["Inbox", "Drafts", "Sent", "Trash"],
+                correct: 1,
+                exp: "Incomplete or unsent emails are automatically saved in the Drafts folder."
+            },
+            {
+                q: "What is the shortcut key to undo the last action performed?",
+                opts: ["Ctrl + Y", "Ctrl + Z", "Ctrl + U", "Ctrl + Shift"],
+                correct: 1,
+                exp: "Ctrl + Z reverts the previous action (Undo)."
+            },
+            {
+                q: "Which device converts digital signals from a computer into analog signals for transmission over phone lines?",
+                opts: ["Hub", "Modem", "Switch", "Bridge"],
+                correct: 1,
+                exp: "A Modem modulates and demodulates digital and analog signals."
+            },
+            {
+                q: "What is the default web browser integrated into Windows 10 and 11?",
+                opts: ["Internet Explorer", "Microsoft Edge", "Google Chrome", "Mozilla Firefox"],
+                correct: 1,
+                exp: "Microsoft Edge is the official default web browser in modern Windows operating systems."
+            },
+            {
+                q: "What is cloud storage?",
+                opts: ["Saving data on a local floppy disk", "Storing data on remote servers accessed via the internet", "Saving files on a local USB flash drive", "Storing files inside the RAM memory"],
+                correct: 1,
+                exp: "Cloud storage keeps data on offsite servers maintained by providers like Google Drive or OneDrive."
+            },
+            {
+                q: "Which action permanently deletes a file without sending it to the Recycle Bin?",
+                opts: ["Delete key only", "Shift + Delete", "Ctrl + Delete", "Right click -> Delete"],
+                correct: 1,
+                exp: "Pressing Shift + Delete bypasses the Recycle Bin and deletes the item permanently."
+            },
+            {
+                q: "What is a cookie in the context of web browsing?",
+                opts: ["A computer virus", "A small text file saved by websites on your browser to store settings", "A browser extension for downloads", "A hardware component inside the mouse"],
+                correct: 1,
+                exp: "Cookies store information like user preferences and login sessions locally."
+            },
+            {
+                q: "Which shortcut opens the Run dialog box in Windows?",
+                opts: ["Win + R", "Win + F", "Ctrl + R", "Alt + R"],
+                correct: 0,
+                exp: "Win + R brings up the Run dialog box to launch applications directly."
+            },
+            {
+                q: "Which unit measures the clock speed of a modern CPU?",
+                opts: ["Megabytes (MB)", "Gigahertz (GHz)", "Pixels", "Bits per second (bps)"],
+                correct: 1,
+                exp: "CPU execution speed is measured in Gigahertz (GHz) or Megahertz (MHz)."
+            },
+            {
+                q: "Which network connects devices across small geographic areas like a single room or office building?",
+                opts: ["WAN", "LAN", "MAN", "SAN"],
+                correct: 1,
+                exp: "LAN (Local Area Network) covers local small geographic areas."
+            },
+            {
+                q: "What is Ransomware?",
+                opts: ["An antivirus software", "Malware that encrypts files and demands payment for decryption", "A free file compressor", "A hardware firewall tool"],
+                correct: 1,
+                exp: "Ransomware locks user files using encryption and demands a ransom to restore access."
+            }
+        ];
+
+        // State Variables
+        let currentMode = 'exam';
+        let userAnswers = {};
+        let timerInterval = null;
+        let timeRemaining = 0;
+        let isSubmitted = false;
+
+        // DOM Elements
+        const studentInfoCard = document.getElementById('studentInfoCard');
+        const quizContainer = document.getElementById('quizContainer');
+        const questionsList = document.getElementById('questionsList');
+        const progressContainer = document.getElementById('progressContainer');
+        const progressBar = document.getElementById('progressBar');
+        const answeredCountEl = document.getElementById('answeredCount');
+        const totalQuestionsCountEl = document.getElementById('totalQuestionsCount');
+        const timerDisplay = document.getElementById('timerDisplay');
+        const resultsContainer = document.getElementById('resultsContainer');
+        const submitBtn = document.getElementById('submitBtn');
+        const examModeSelect = document.getElementById('examMode');
+        const timerSelect = document.getElementById('timerSelect');
+
+        totalQuestionsCountEl.textContent = quizData.length;
+
+        function startQuiz() {
+            const nameInput = document.getElementById('studentName').value.trim();
+            if (!nameInput) {
+                document.getElementById('nameError').classList.remove('hidden');
+                return;
+            }
+            document.getElementById('nameError').classList.add('hidden');
+            
+            currentMode = examModeSelect.value;
+            const timerMins = parseInt(timerSelect.value);
+
+            studentInfoCard.classList.add('hidden');
+            examModeSelect.disabled = true;
+            timerSelect.disabled = true;
+            
+            renderQuestions();
+            quizContainer.classList.remove('hidden');
+            progressContainer.classList.remove('hidden');
+
+            if (timerMins > 0) {
+                startTimer(timerMins);
+            } else {
+                timerDisplay.style.display = 'none';
+            }
+            
+            window.scrollTo({top: quizContainer.offsetTop - 20, behavior: 'smooth'});
+        }
+
+        function renderQuestions() {
+            questionsList.innerHTML = '';
+            quizData.forEach((q, index) => {
+                const card = document.createElement('div');
+                card.className = 'card question-card';
+                card.id = `q-card-${index}`;
+                
+                let optionsHtml = '';
+                q.opts.forEach((opt, optIndex) => {
+                    optionsHtml += `
+                        <label class="radio-label en-text" id="label-${index}-${optIndex}">
+                            <input type="radio" name="q${index}" value="${optIndex}" onchange="handleAnswer(${index}, ${optIndex})">
+                            <span class="text-base sm:text-lg font-medium">${opt}</span>
+                        </label>
+                    `;
+                });
+
+                card.innerHTML = `
+                    <div class="flex items-start mb-4 en-text">
+                        <span class="text-lg font-bold text-purple-700 mr-3">${index + 51}.</span>
+                        <h3 class="text-base sm:text-lg font-semibold leading-relaxed text-gray-800">${q.q}</h3>
+                    </div>
+                    <div class="flex flex-col gap-2 pl-6">
+                        ${optionsHtml}
+                    </div>
+                    <div class="explanation-box" id="exp-${index}">
+                        <strong>Explanation:</strong> ${q.exp}
+                    </div>
+                `;
+                questionsList.appendChild(card);
+            });
+        }
+
+        function handleAnswer(qIndex, selectedOptIndex) {
+            if (isSubmitted) return;
+            
+            userAnswers[qIndex] = selectedOptIndex;
+            updateProgress();
+
+            if (currentMode === 'practice') {
+                const questionData = quizData[qIndex];
+                const isCorrect = (selectedOptIndex === questionData.correct);
+                
+                for(let i=0; i<questionData.opts.length; i++){
+                    document.getElementById(`label-${qIndex}-${i}`).classList.remove('option-correct', 'option-incorrect');
+                }
+                
+                const selectedLabel = document.getElementById(`label-${qIndex}-${selectedOptIndex}`);
+                
+                if (isCorrect) {
+                    selectedLabel.classList.add('option-correct');
+                } else {
+                    selectedLabel.classList.add('option-incorrect');
+                    if (questionData.correct !== undefined) {
+                        document.getElementById(`label-${qIndex}-${questionData.correct}`).classList.add('option-correct');
+                    }
+                }
+
+                if (questionData.exp) {
+                    document.getElementById(`exp-${qIndex}`).style.display = 'block';
+                }
+                
+                const radios = document.getElementsByName(`q${qIndex}`);
+                radios.forEach(radio => radio.disabled = true);
+            }
+        }
+
+        function updateProgress() {
+            const answered = Object.keys(userAnswers).length;
+            const total = quizData.length;
+            const percentage = (answered / total) * 100;
+            
+            answeredCountEl.textContent = answered;
+            progressBar.style.width = percentage + '%';
+        }
+
+        function startTimer(minutes) {
+            timeRemaining = minutes * 60;
+            updateTimerDisplay();
+            
+            timerInterval = setInterval(() => {
+                timeRemaining--;
+                updateTimerDisplay();
+                
+                if (timeRemaining <= 0) {
+                    clearInterval(timerInterval);
+                    alert("Time is up! Your exam will be submitted automatically.");
+                    submitQuiz();
+                }
+            }, 1000);
+        }
+
+        function updateTimerDisplay() {
+            const m = Math.floor(timeRemaining / 60).toString().padStart(2, '0');
+            const s = (timeRemaining % 60).toString().padStart(2, '0');
+            timerDisplay.textContent = `${m}:${s}`;
+            
+            if (timeRemaining < 60) {
+                timerDisplay.style.color = 'var(--error)';
+            }
+        }
+
+        function submitQuiz() {
+            if (isSubmitted) return;
+            
+            const answered = Object.keys(userAnswers).length;
+            if (answered < quizData.length && timeRemaining > 0) {
+                if(!confirm(`لقد أجبت على (${answered}/${quizData.length}) سؤالاً فقط. هل أنت متأكد من التسليم النهائي؟`)){
+                    return;
+                }
+            }
+
+            isSubmitted = true;
+            if (timerInterval) clearInterval(timerInterval);
+            
+            calculateResults();
+        }
+
+        function calculateResults() {
+            let correctCount = 0;
+            let incorrectCount = 0;
+            let unansweredCount = 0;
+
+            quizData.forEach((q, index) => {
+                const userAnswer = userAnswers[index];
+                
+                const radios = document.getElementsByName(`q${index}`);
+                radios.forEach(radio => radio.disabled = true);
+
+                if (userAnswer === undefined) {
+                    unansweredCount++;
+                } else if (userAnswer === q.correct) {
+                    correctCount++;
+                } else {
+                    incorrectCount++;
+                }
+            });
+
+            const totalScore = correctCount * QUESTION_SCORE;
+            const maxScore = quizData.length * QUESTION_SCORE;
+            const studentName = document.getElementById('studentName').value;
+
+            document.getElementById('resultStudentName').textContent = `اسم الطالب: ${studentName}`;
+            document.getElementById('finalScoreDisplay').textContent = `${totalScore} / ${maxScore}`;
+            document.getElementById('correctCount').textContent = correctCount;
+            document.getElementById('incorrectCount').textContent = incorrectCount;
+            document.getElementById('unansweredCount').textContent = unansweredCount;
+
+            quizContainer.classList.add('hidden');
+            progressContainer.classList.add('hidden');
+            resultsContainer.classList.remove('hidden');
+            
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        }
+
+        function showCorrectAnswers() {
+            quizContainer.classList.remove('hidden');
+            document.getElementById('submitBtn').style.display = 'none';
+            document.getElementById('showAnswersBtn').style.display = 'none';
+
+            quizData.forEach((q, index) => {
+                const userAnswer = userAnswers[index];
+                
+                if(q.exp) document.getElementById(`exp-${index}`).style.display = 'block';
+
+                if (userAnswer !== undefined) {
+                    const selectedLabel = document.getElementById(`label-${index}-${userAnswer}`);
+                    if (userAnswer === q.correct) {
+                        selectedLabel.classList.add('option-correct');
+                    } else {
+                        selectedLabel.classList.add('option-incorrect');
+                        if(q.correct !== undefined) {
+                            document.getElementById(`label-${index}-${q.correct}`).classList.add('option-correct');
+                        }
+                    }
+                } else {
+                    if(q.correct !== undefined) {
+                         document.getElementById(`label-${index}-${q.correct}`).classList.add('option-correct');
+                    }
+                    document.getElementById(`q-card-${index}`).style.borderRight = "4px solid var(--text-secondary)";
+                }
+            });
+            
+            window.scrollTo({top: quizContainer.offsetTop - 20, behavior: 'smooth'});
+        }
+    </script>
+</body>
+</html>
